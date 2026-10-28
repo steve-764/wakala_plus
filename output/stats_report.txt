@@ -1,0 +1,47 @@
+=== Statistics report: daily_deposits_kes ===
+Rows read         : 40
+Valid values      : 35
+Rejected values   : 5
+  row 7: '' (missing value)
+  row 10: '-' (Not a number)
+  row 14: 'n/a' (Not a number)
+  row 25: '12,40O' (Not a number)
+  row 29: '' (missing value)
+
+                    all data               outliers removed
+count               35                     31
+mean                22,400.00              18,349.65
+median              18,805.47              18,506.72
+mode                none                   none
+variance (sample)   328,019,873.36         10,116,378.52
+std dev (sample)    18,111.32              3,180.63
+min / max           1,200.00 / 96,500.00   12,772.70 / 26,725.69
+Q1 / Q3             15,988.21 / 21,195.44  15,988.21 / 20,745.52
+IQR                 5,207.23               4,757.31
+
+Outlier fences      : lower 8,177.36, upper 29,006.28
+Outliers            : 96,500.00 (2026-09-20, AG-104), 1,200.00 (2026-10-02, AG-104), 88,400.00 (2026-10-06, AG-104), 29,060.99 (2026-10-07, AG-101)
+
+=== Statistics report: transactions ===
+Rows read         : 40
+Valid values      : 35
+Rejected values   : 5
+  row 7: '' (missing value)
+  row 10: '' (missing value)
+  row 14: '' (missing value)
+  row 17: 'abc' (Not a number)
+  row 29: '' (missing value)
+
+                    all data        outliers removed
+count               35              35
+mean                93.11           93.11
+median              94.00           94.00
+mode                73.00, 132.00   73.00, 132.00
+variance (sample)   502.57          502.57
+std dev (sample)    22.42           22.42
+min / max           60.00 / 140.00  60.00 / 140.00
+Q1 / Q3             73.00 / 110.00  73.00 / 110.00
+IQR                 37.00           37.00
+
+Outlier fences      : lower 17.50, upper 165.50
+Outliers            : none
