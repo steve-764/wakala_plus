@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from analysis import (StatisticsAnalyzer, iqr_outliers, load_column, median, mode,
+from stats_toolkit import (StatisticsAnalyzer, iqr_outliers, load_column, median, mode,
                            quartiles, std_dev, variance)
 
 # Classic textbook set: mean 5, squared differences sum to 32.
