@@ -21,17 +21,20 @@ def load_column(path: Path, column: str) -> tuple[list[float], list[tuple[int, s
     """Return (valid_values, rejected) where rejected holds (row_number, raw_value) pairs."""
     valid_values, rejected = [], []
 
-    # importing data using dict reader
-    with open(path, newline="") as f:
-        for index, row in enumerate(csv.DictReader(f), start=2):
-            raw_data = row[column]
-            try:
-                # attmept to convert col to float
-                valid_values.append(float(raw_data))
-            except ValueError:
-                # if float conversion fails, find reason 
-                reason = "missing value" if raw_data.strip() == "" else "not a number"
-                rejected.append((index, raw_data, reason)) 
+    try:
+        # importing data using dict reader
+        with open(path, newline="") as f:
+            for index, row in enumerate(csv.DictReader(f), start=2):
+                raw_data = row[column]
+                try:
+                    # attmept to convert col to float
+                    valid_values.append(float(raw_data))
+                except ValueError:
+                    # if float conversion fails, find reason 
+                    reason = "missing value" if raw_data.strip() == "" else "not a number"
+                    rejected.append((index, raw_data, reason)) 
+    except: 
+        raise FileNotFoundError("FIle not found!")
 
     return valid_values, rejected
 
@@ -49,6 +52,10 @@ def load_column(path: Path, column: str) -> tuple[list[float], list[tuple[int, s
 
 
 def mean(values: list[float]) -> float:
+    if not values:
+        raise ValueError("cannot find mean of empty list!")
+    if len(values) < 2:
+        raise ValueError("must pass more than one value to find the mean!")
     return sum(values) / len(values)
 
 
@@ -90,6 +97,12 @@ def median(values: list[float]) -> float:
 
 def mode(values: list[float]) -> list[float]:
     """Return every value that occurs most often (a list, because there can be ties or none)."""
+
+    # if no value is passed
+    if not values:
+        raise ValueError("need atleast one value to find the mode")
+    
+    
     # initialize empty set counts to hold unique values
     counts = {}
 
@@ -97,9 +110,6 @@ def mode(values: list[float]) -> list[float]:
     for value in values:
         counts[value] = counts.get(value, 0) + 1
 
-    # if no value is found, no mode, return empty list
-    if not counts:
-        return []
 
     # find highest count
     highest = max(counts.values())
@@ -304,8 +314,8 @@ class StatisticsAnalyzer:
 
     
 transactions = StatisticsAnalyzer.from_csv(DATA_PATH, "transactions")
-print(transactions.report())
-print()
+# print(transactions.report())
+# print()
 
 
 deposits = StatisticsAnalyzer.from_csv(DATA_PATH, "daily_deposits_kes")
@@ -342,8 +352,9 @@ def compare_with_numpy(analyzer):
     print(f"mean      {word('mean')}")
     print(f"median    {word('median')}")
     print(f"variance  {word('variance')} ")
-    print(f"std dev   {word('std_dev')} ")
-    print(f"Q1 / Q3   {word('q1_q3')} ")
+    print(f"std dev   {word('std_dev')}")
+    print(f"Q1 / Q3   {word('q1_q3')}")
+
     return results
 
 
@@ -352,7 +363,7 @@ analyzer = compare_with_numpy(deposits)
 
 
 def main() -> None:
-    columns = ["daily_deposits_kes", "transactions"]
+    columns = ["daily_deposits_kes", ''' "transactions" ''']
     reports = [StatisticsAnalyzer.from_csv(DATA_PATH, c).report() for c in columns]
     text = "\n\n".join(reports) + "\n"
 
@@ -360,6 +371,9 @@ def main() -> None:
     OUTPUT_PATH.parent.mkdir(exist_ok=True)  # create output/ folder if it is missing
     OUTPUT_PATH.write_text(text, encoding="utf-8")
 
+    
+
+    
 
 if __name__ == "__main__":
     main()
