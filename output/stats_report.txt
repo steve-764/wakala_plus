@@ -3,9 +3,9 @@ Rows read         : 40
 Valid values      : 35
 Rejected values   : 5
   row 7: '' (missing value)
-  row 10: '-' (Not a number)
-  row 14: 'n/a' (Not a number)
-  row 25: '12,40O' (Not a number)
+  row 10: '-' (not a number)
+  row 14: 'n/a' (not a number)
+  row 25: '12,40O' (not a number)
   row 29: '' (missing value)
 
                     all data               outliers removed
@@ -29,7 +29,7 @@ Rejected values   : 5
   row 7: '' (missing value)
   row 10: '' (missing value)
   row 14: '' (missing value)
-  row 17: 'abc' (Not a number)
+  row 17: 'abc' (not a number)
   row 29: '' (missing value)
 
                     all data        outliers removed
