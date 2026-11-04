@@ -64,7 +64,7 @@ Run from the project root, because the data path (`data/agent_deposits.csv`) is 
 python stats_toolkit.py
 ```
 
-This prints a report for `daily_deposits_kes` and `transactions`, and saves the same text to `output/stats_report.txt` (the `output` folder is created if it does not exist).
+This prints a report for `daily_deposits_kes`, and saves the same text to `output/stats_report.txt` (the `output` folder is created if it does not exist).
 
 To use it from your own code:
 
@@ -103,10 +103,13 @@ Outliers            : 96,500.00 (2026-09-20, AG-104), ...
 The tests use small, hand-checkable inputs (not the dataset) and cover empty input, even and odd lengths, ties in the mode, sample versus population variance, outlier detection and rejected values.
 
 ```bash
-python -m unittest -v
+python test_stats_toolkit.py
 ```
 
-A passing run ends with `Ran 11 tests` and `OK` (unittest) or `11 passed` (pytest). Run the command from the folder containing `test_stats_toolkit.py` and `stats_toolkit.py`.
+A passing run ends with `Tests ran: 9 failed:0`
+
+Run the `test_stats_toolkit.py` file after running the `stats_toolkit.py`. 
+The test_stats_toolkit adds to the `stats_report` file created by the `stats_toolkit.py` file.
 
 ## Outlier findings
 
@@ -121,7 +124,7 @@ For `daily_deposits_kes`, the IQR fences are **8,177.36 (lower)** and **29,006.2
 | 1,200.00 | 2026-10-02 | AG-104 | Far below the lower fence |
 | 29,060.99 | 2026-10-07 | AG-101 | Borderline, about 55 KES over the fence |
 
-The first three are extreme and all belong to AG-104. The fourth is only just outside the fence, and a different quartile method  possibly place it inside the limits.
+The first three are extreme and all belong to AG-104. The fourth is only just outside the fence, and a different quartile method can possibly place it inside the limits.
 
 Effect on the statistics (35 values before, 31 after):
 
