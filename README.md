@@ -106,12 +106,6 @@ The tests use small, hand-checkable inputs (not the dataset) and cover empty inp
 python -m unittest -v
 ```
 
-or, with pytest installed:
-
-```bash
-pytest -q
-```
-
 A passing run ends with `Ran 11 tests` and `OK` (unittest) or `11 passed` (pytest). Run the command from the folder containing `test_stats_toolkit.py` and `stats_toolkit.py`.
 
 ## Outlier findings
@@ -127,7 +121,7 @@ For `daily_deposits_kes`, the IQR fences are **8,177.36 (lower)** and **29,006.2
 | 1,200.00 | 2026-10-02 | AG-104 | Far below the lower fence |
 | 29,060.99 | 2026-10-07 | AG-101 | Borderline, about 55 KES over the fence |
 
-The first three are extreme and all belong to AG-104. The fourth is only just outside the fence, and a different quartile method could place it inside.
+The first three are extreme and all belong to AG-104. The fourth is only just outside the fence, and a different quartile method  possibly place it inside the limits.
 
 Effect on the statistics (35 values before, 31 after):
 
@@ -145,4 +139,5 @@ Data quality: 5 values were rejected in each column (blank cells, `-`, `n/a`, `a
 ## Recommendations
 
 1. **Verify the AG-104 values at the source.** Check the deposit records or receipts for 2026-09-20, 2026-10-02 and 2026-10-06. Because all three extreme values come from one agent, find out whether it is a reporting or data-entry problem.
-2. **Add validation where the data is captured.** Reject or flag non-numeric entries (`-`, `n/a`, `abc`, thousands separators and typos like `12,40O`) and blank deposits at entry time.
+2. **Add validation where the data is captured.** Reject or flag non-numeric entries (`-`, `n/a`, `abc`, thousands separators and typos like `"12,40O"`) and blank deposits at entry time.
+3. **Reject empty data rows** there are some instances such a on 2026-09-28 agent AG-104 passes no transaction deposits or transactions amount. This introduces a row that cannot be used to perform any meaningful calculation, automatically rejecting such data ensures no redundant rows will be in the dataset.
