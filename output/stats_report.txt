@@ -28,3 +28,6 @@ median    MATCH
 variance  MATCH
 std dev   MATCH
 Q1 / Q3   MATCH
+
+=== Test report ===
+Tests ran: 9, failed: 0
